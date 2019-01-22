@@ -3,6 +3,7 @@ import React, { Component } from "react"
 import AnimalList from './animal/AnimalList'
 import LocationList from './location/LocationList'
 import EmployeeList from './employee/EmployeeList'
+import OwnerList from './owner/OwnerList'
 import AnimalDetail from './animal/AnimalDetail'
 
 
@@ -10,7 +11,8 @@ export default class ApplicationViews extends Component {
   state = {
     animals: [],
     employees: [],
-    locations: []
+    locations: [],
+    owners: []
   };
 
   deleteAnimal = id => {
@@ -39,6 +41,9 @@ export default class ApplicationViews extends Component {
       .then(() => fetch("http://localhost:5002/locations")
         .then(r => r.json()))
       .then(locations => newState.locations = locations)
+      .then(() => fetch("http://localhost:5002/owners")
+        .then(r => r.json()))
+      .then(owners => newState.owners = owners)
       .then(() => this.setState(newState))
   }
 
@@ -55,8 +60,11 @@ export default class ApplicationViews extends Component {
         <Route path="/animals/:animalId(\d+)" render={(props) => {
           return <AnimalDetail {...props} deleteAnimal={this.deleteAnimal} animals={this.state.animals} />
         }} />
-        <Route exact path="/employees" render={(props) => {
+        <Route path="/employees" render={(props) => {
           return <EmployeeList employees={this.state.employees} />
+        }} />
+        <Route path="/owners" render={(props) => {
+          return <OwnerList owners={this.state.owners} />
         }} />
       </React.Fragment>
     )

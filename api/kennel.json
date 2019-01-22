@@ -32,53 +32,65 @@
   "animals": [
     {
       "id": 1,
-      "name": "Doodles"
+      "name": "Doodles",
+      "ownerId": 5
     },
     {
       "id": 2,
-      "name": "Jack"
+      "name": "Jack",
+      "ownerId": 3
     },
     {
       "id": 3,
-      "name": "Angus"
+      "name": "Angus",
+      "ownerId": 1
     },
     {
       "id": 4,
-      "name": "Henley"
+      "name": "Henley",
+      "ownerId": 4
     },
     {
       "id": 5,
-      "name": "Derkins"
+      "name": "Derkins",
+      "ownerId": 6
     },
     {
       "id": 6,
-      "name": "Checkers"
+      "name": "Checkers",
+      "ownerId": 2
     }
   ],
   "owners": [
     {
       "id": 1,
-      "name": "Ryan Tanay"
+      "name": "Ryan Tanay",
+      "phoneNumber": "615-111-1111"
     },
     {
       "id": 2,
-      "name": "Emma Beaton"
+      "name": "Emma Beaton",
+      "phoneNumber": "615-111-2222"
     },
     {
       "id": 3,
-      "name": "Dani Adkins"
+      "name": "Dani Adkins",
+      "phoneNumber": "615-111-3333"
     },
     {
       "id": 4,
-      "name": "Adam Oswalt"
+      "name": "Adam Oswalt",
+      "phoneNumber": "615-111-4444"
     },
     {
       "id": 5,
-      "name": "Fletcher Bangs"
+      "name": "Fletcher Bangs",
+      "phoneNumber": "615-111-5555"
     },
     {
       "id": 6,
-      "name": "Angela Lee"
+      "name": "Angela Lee",
+      "phoneNumber": "615-111-6666"
     }
   ]
 }
