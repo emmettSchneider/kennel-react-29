@@ -5,6 +5,8 @@ import LocationList from './location/LocationList'
 import EmployeeList from './employee/EmployeeList'
 import OwnerList from './owner/OwnerList'
 import AnimalDetail from './animal/AnimalDetail'
+import AnimalForm from './animal/AnimalForm'
+import AnimalManager from '../modules/AnimalManager'
 
 
 export default class ApplicationViews extends Component {
@@ -28,6 +30,13 @@ export default class ApplicationViews extends Component {
         })
       );
   };
+
+  addAnimal = (animal) => AnimalManager.post(animal)
+    .then(() => AnimalManager.getAll())
+    .then(animals => this.setState({
+      animals: animals
+    })
+    )
 
   componentDidMount() {
     const newState = {}
@@ -55,7 +64,14 @@ export default class ApplicationViews extends Component {
           return <LocationList locations={this.state.locations} />
         }} />
         <Route exact path="/animals" render={(props) => {
-          return <AnimalList animals={this.state.animals} />
+          return <AnimalList {...props}
+            deleteAnimal={this.deleteAnimal}
+            animals={this.state.animals} />
+        }} />
+        <Route path="/animals/new" render={(props) => {
+          return <AnimalForm {...props}
+            addAnimal={this.addAnimal}
+            employees={this.state.employees} />
         }} />
         <Route path="/animals/:animalId(\d+)" render={(props) => {
           return <AnimalDetail {...props} deleteAnimal={this.deleteAnimal} animals={this.state.animals} />
