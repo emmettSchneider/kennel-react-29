@@ -1,5 +1,5 @@
-import { Route } from 'react-router-dom'
-import React, { Component } from "react"
+import { Route, Redirect } from 'react-router-dom'
+import React, { Component } from 'react'
 import AnimalList from './animal/AnimalList'
 import LocationList from './location/LocationList'
 import EmployeeList from './employee/EmployeeList'
@@ -7,6 +7,8 @@ import OwnerList from './owner/OwnerList'
 import AnimalDetail from './animal/AnimalDetail'
 import AnimalForm from './animal/AnimalForm'
 import AnimalManager from '../modules/AnimalManager'
+import Login from './authentication/Login'
+import SearchResults from './search/SearchResults'
 
 
 export default class ApplicationViews extends Component {
@@ -16,6 +18,9 @@ export default class ApplicationViews extends Component {
     locations: [],
     owners: []
   };
+
+  // Check if credentials are in local storage
+  isAuthenticated = () => sessionStorage.getItem('credentials') !== null
 
   deleteAnimal = id => {
     return fetch(`http://localhost:5002/animals/${id}`, {
@@ -60,6 +65,7 @@ export default class ApplicationViews extends Component {
   render() {
     return (
       <React.Fragment>
+        <Route path="/login" component={Login} />
         <Route exact path="/" render={(props) => {
           return <LocationList locations={this.state.locations} />
         }} />
@@ -76,12 +82,21 @@ export default class ApplicationViews extends Component {
         <Route path="/animals/:animalId(\d+)" render={(props) => {
           return <AnimalDetail {...props} deleteAnimal={this.deleteAnimal} animals={this.state.animals} />
         }} />
-        <Route path="/employees" render={(props) => {
-          return <EmployeeList employees={this.state.employees} />
+        <Route exact path="/employees" render={props => {
+          if (this.isAuthenticated()) {
+            return <EmployeeList deleteEmployee={this.deleteEmployee}
+              employees={this.state.employees} />
+          } else {
+            return <Redirect to="/login" />
+          }
         }} />
         <Route path="/owners" render={(props) => {
           return <OwnerList owners={this.state.owners} />
         }} />
+        <Route path="/search" render={props => {
+          return (<SearchResults {...this.props} />);
+        }}
+        />
       </React.Fragment>
     )
   }
